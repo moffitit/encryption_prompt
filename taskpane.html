@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Encrypt Email</title>
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: #ffffff;
+      color: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 360px;
+      text-align: center;
+    }
+
+    .shield-icon {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 16px;
+      background: #0078d4;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .shield-icon svg {
+      width: 30px;
+      height: 30px;
+      fill: white;
+    }
+
+    h1 {
+      font-size: 17px;
+      font-weight: 600;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+    }
+
+    p {
+      font-size: 13px;
+      color: #555;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    button {
+      flex: 1;
+      max-width: 140px;
+      padding: 10px 0;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, opacity 0.15s;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    #btnYes {
+      background: #0078d4;
+      color: white;
+    }
+
+    #btnYes:hover:not(:disabled) { background: #106ebe; }
+
+    #btnNo {
+      background: #f3f2f1;
+      color: #1a1a1a;
+      border: 1px solid #d2d0ce;
+    }
+
+    #btnNo:hover:not(:disabled) { background: #e1dfdd; }
+
+    .status {
+      margin-top: 18px;
+      font-size: 12px;
+      min-height: 20px;
+      color: #555;
+    }
+
+    .status.success { color: #107c10; font-weight: 600; }
+    .status.error   { color: #a4262c; font-weight: 600; }
+    .status.working { color: #0078d4; }
+
+    .badge {
+      display: inline-block;
+      margin-top: 20px;
+      font-size: 11px;
+      color: #888;
+      padding: 4px 10px;
+      background: #f3f2f1;
+      border-radius: 20px;
+    }
+
+    /* Lock animation */
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.08); }
+    }
+    .animating .shield-icon { animation: pulse 0.6s ease-in-out 2; }
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div class="shield-icon">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5L12 1zm0 4a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm0 13c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08A7.232 7.232 0 0 1 12 18z"/>
+      </svg>
+    </div>
+
+    <h1>Does this email need to be encrypted?</h1>
+    <p>If it contains sensitive or confidential information, choose <strong>Yes</strong> to send with Microsoft Purview OME encryption.</p>
+
+    <div class="btn-row">
+      <button id="btnYes" onclick="handleEncrypt()">🔒 Yes, Encrypt</button>
+      <button id="btnNo"  onclick="handleSkip()">No Thanks</button>
+    </div>
+
+    <div class="status" id="status"></div>
+    <div class="badge">Microsoft Purview OME</div>
+  </div>
+
+  <script>
+    Office.onReady(function(info) {
+      if (info.host !== Office.HostType.Outlook) {
+        setStatus("This add-in only works in Outlook.", "error");
+      }
+    });
+
+    function setStatus(msg, type) {
+      const el = document.getElementById("status");
+      el.textContent = msg;
+      el.className = "status " + (type || "");
+    }
+
+    function setBusy(busy) {
+      document.getElementById("btnYes").disabled = busy;
+      document.getElementById("btnNo").disabled  = busy;
+    }
+
+    // ── YES: Apply Purview OME sensitivity label then send ──────────────────
+    function handleEncrypt() {
+      setBusy(true);
+      setStatus("Applying OME encryption…", "working");
+      document.getElementById("card").classList.add("animating");
+
+      const item = Office.context.mailbox.item;
+
+      // Purview OME is applied via sensitivity labels (requirementSet 1.7+)
+      // or via internet headers as a fallback for Classic Outlook (1.3+).
+      if (
+        Office.context.requirements.isSetSupported("Mailbox", "1.7") &&
+        typeof item.sensitivityLabel !== "undefined"
+      ) {
+        applySensitivityLabel(item);
+      } else {
+        // Fallback: set the X-Microsoft-Antispam-OMEX header so Exchange
+        // transport rules can pick up and apply OME on delivery.
+        applyOMEHeader(item);
+      }
+    }
+
+    // ── Sensitivity label approach (New Outlook / OWA, requirement set 1.7+) ─
+    function applySensitivityLabel(item) {
+      // Replace LABEL_GUID below with your tenant's OME / Encrypt label GUID.
+      // Find it in: M365 Compliance › Information protection › Labels › <label> › properties.
+      const ENCRYPT_LABEL_GUID = "YOUR-PURVIEW-LABEL-GUID-HERE";
+
+      item.sensitivityLabel.setAsync(ENCRYPT_LABEL_GUID, function(result) {
+        if (result.status === Office.AsyncResultStatus.Succeeded) {
+          setStatus("✔ OME encryption applied. You can now send.", "success");
+          setBusy(false);
+          document.getElementById("card").classList.remove("animating");
+        } else {
+          // If label API fails, fall back to header method
+          console.warn("sensitivityLabel.setAsync failed:", result.error.message);
+          applyOMEHeader(item);
+        }
+      });
+    }
+
+    // ── Header fallback (Classic Outlook, requirement set 1.3+) ─────────────
+    // A transport rule in Exchange Online must be configured to apply OME
+    // when it sees  X-Encrypt-This: true  (see README for the EXO PowerShell).
+    function applyOMEHeader(item) {
+      item.internetHeaders.setAsync(
+        { "X-Encrypt-This": "true" },
+        function(result) {
+          document.getElementById("card").classList.remove("animating");
+          if (result.status === Office.AsyncResultStatus.Succeeded) {
+            setStatus("✔ Encryption flag set. You can now send.", "success");
+          } else {
+            setStatus("⚠ Could not apply encryption. See README.", "error");
+            console.error("internetHeaders.setAsync failed:", result.error.message);
+          }
+          setBusy(false);
+        }
+      );
+    }
+
+    // ── NO: Just close the task pane ────────────────────────────────────────
+    function handleSkip() {
+      setStatus("No encryption applied.", "");
+      setTimeout(() => {
+        Office.context.ui.closeContainer();   // closes task pane if supported
+      }, 600);
+    }
+  </script>
+</body>
+</html>
