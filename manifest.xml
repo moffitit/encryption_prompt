@@ -78,10 +78,6 @@
             </OfficeTab>
           </ExtensionPoint>
 
-          <ExtensionPoint xsi:type="Events">
-            <Event Type="ItemSend" FunctionExecution="synchronous" FunctionName="onItemSend"/>
-          </ExtensionPoint>
-
         </DesktopFormFactor>
       </Host>
     </Hosts>
