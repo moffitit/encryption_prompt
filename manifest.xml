@@ -11,12 +11,12 @@
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="Encrypt Prompt"/>
   <Description DefaultValue="Prompts you to encrypt this email with Microsoft Purview OME before sending."/>
-  <IconUrl DefaultValue="https://localhost:3000/assets/icon-80.png"/>
-  <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-128.png"/>
-  <SupportUrl DefaultValue="https://localhost:3000/support"/>
+  <IconUrl DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/assets/icon-80.png"/>
+  <HighResolutionIconUrl DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/assets/icon-128.png"/>
+  <SupportUrl DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/support"/>
 
   <AppDomains>
-    <AppDomain>https://localhost:3000</AppDomain>
+    <AppDomain>https://ambitious-moss-0b7d1121e.7.azurestaticapps.net</AppDomain>
   </AppDomains>
 
   <Hosts>
@@ -32,7 +32,7 @@
   <FormSettings>
     <Form xsi:type="ItemEdit">
       <DesktopSettings>
-        <SourceLocation DefaultValue="https://localhost:3000/commands.html"/>
+        <SourceLocation DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/commands.html"/>
       </DesktopSettings>
     </Form>
   </FormSettings>
@@ -85,12 +85,12 @@
 
     <Resources>
       <bt:Images>
-        <bt:Image id="v10_Icon_16x16" DefaultValue="https://localhost:3000/assets/icon-16.png"/>
-        <bt:Image id="v10_Icon_32x32" DefaultValue="https://localhost:3000/assets/icon-32.png"/>
-        <bt:Image id="v10_Icon_80x80" DefaultValue="https://localhost:3000/assets/icon-80.png"/>
+        <bt:Image id="v10_Icon_16x16" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/assets/icon-16.png"/>
+        <bt:Image id="v10_Icon_32x32" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/assets/icon-32.png"/>
+        <bt:Image id="v10_Icon_80x80" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/assets/icon-80.png"/>
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="v10_Commands_Url" DefaultValue="https://localhost:3000/commands.html"/>
+        <bt:Url id="v10_Commands_Url" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/commands.html"/>
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="v10_GroupLabel" DefaultValue="Encryption"/>
@@ -150,13 +150,13 @@
 
       <Resources>
         <bt:Images>
-          <bt:Image id="v11_Icon_16x16" DefaultValue="https://localhost:3000/assets/icon-16.png"/>
-          <bt:Image id="v11_Icon_32x32" DefaultValue="https://localhost:3000/assets/icon-32.png"/>
-          <bt:Image id="v11_Icon_80x80" DefaultValue="https://localhost:3000/assets/icon-80.png"/>
+          <bt:Image id="v11_Icon_16x16" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/assets/icon-16.png"/>
+          <bt:Image id="v11_Icon_32x32" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/assets/icon-32.png"/>
+          <bt:Image id="v11_Icon_80x80" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/assets/icon-80.png"/>
         </bt:Images>
         <bt:Urls>
-          <bt:Url id="v11_Commands_Url" DefaultValue="https://localhost:3000/commands.html"/>
-          <bt:Url id="v11_LaunchEvent_Url" DefaultValue="https://localhost:3000/launchevent.js"/>
+          <bt:Url id="v11_Commands_Url" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/commands.html"/>
+          <bt:Url id="v11_LaunchEvent_Url" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/launchevent.js"/>
         </bt:Urls>
         <bt:ShortStrings>
           <bt:String id="v11_GroupLabel" DefaultValue="Encryption"/>
