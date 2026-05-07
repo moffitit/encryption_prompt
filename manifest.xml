@@ -52,21 +52,21 @@
     <Hosts>
       <Host xsi:type="MailHost">
         <DesktopFormFactor>
-          <FunctionFile resid="Commands.Url"/>
+          <FunctionFile resid="a.commands"/>
           <ExtensionPoint xsi:type="MessageComposeCommandSurface">
             <OfficeTab id="TabDefault">
-              <Group id="ComposeGroup">
-                <Label resid="GroupLabel"/>
-                <Control xsi:type="Button" id="EncryptBtn">
-                  <Label resid="BtnLabel"/>
+              <Group id="GroupA">
+                <Label resid="a.group"/>
+                <Control xsi:type="Button" id="BtnA">
+                  <Label resid="a.btn"/>
                   <Supertip>
-                    <Title resid="BtnLabel"/>
-                    <Description resid="BtnTooltip"/>
+                    <Title resid="a.btn"/>
+                    <Description resid="a.tip"/>
                   </Supertip>
                   <Icon>
-                    <bt:Image size="16" resid="Icon16"/>
-                    <bt:Image size="32" resid="Icon32"/>
-                    <bt:Image size="80" resid="Icon80"/>
+                    <bt:Image size="16" resid="a.icon16"/>
+                    <bt:Image size="32" resid="a.icon32"/>
+                    <bt:Image size="80" resid="a.icon80"/>
                   </Icon>
                   <Action xsi:type="ExecuteFunction">
                     <FunctionName>openEncryptDialog</FunctionName>
@@ -80,19 +80,19 @@
     </Hosts>
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon16" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/assets/icon-16.png"/>
-        <bt:Image id="Icon32" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/assets/icon-32.png"/>
-        <bt:Image id="Icon80" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/assets/icon-80.png"/>
+        <bt:Image id="a.icon16" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/assets/icon-16.png"/>
+        <bt:Image id="a.icon32" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/assets/icon-32.png"/>
+        <bt:Image id="a.icon80" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/assets/icon-80.png"/>
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Commands.Url" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/commands.html"/>
+        <bt:Url id="a.commands" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/commands.html"/>
       </bt:Urls>
       <bt:ShortStrings>
-        <bt:String id="GroupLabel" DefaultValue="Encryption"/>
-        <bt:String id="BtnLabel" DefaultValue="Encrypt Prompt"/>
+        <bt:String id="a.group" DefaultValue="Encryption"/>
+        <bt:String id="a.btn" DefaultValue="Encrypt Prompt"/>
       </bt:ShortStrings>
       <bt:LongStrings>
-        <bt:String id="BtnTooltip" DefaultValue="Prompt to encrypt this email with Microsoft Purview OME."/>
+        <bt:String id="a.tip" DefaultValue="Prompt to encrypt this email with Microsoft Purview OME."/>
       </bt:LongStrings>
     </Resources>
 
@@ -105,21 +105,21 @@
       <Hosts>
         <Host xsi:type="MailHost">
           <DesktopFormFactor>
-            <FunctionFile resid="Commands.Url"/>
+            <FunctionFile resid="b.commands"/>
             <ExtensionPoint xsi:type="MessageComposeCommandSurface">
               <OfficeTab id="TabDefault">
-                <Group id="ComposeGroup11">
-                  <Label resid="GroupLabel"/>
-                  <Control xsi:type="Button" id="EncryptBtn11">
-                    <Label resid="BtnLabel"/>
+                <Group id="GroupB">
+                  <Label resid="b.group"/>
+                  <Control xsi:type="Button" id="BtnB">
+                    <Label resid="b.btn"/>
                     <Supertip>
-                      <Title resid="BtnLabel"/>
-                      <Description resid="BtnTooltip"/>
+                      <Title resid="b.btn"/>
+                      <Description resid="b.tip"/>
                     </Supertip>
                     <Icon>
-                      <bt:Image size="16" resid="Icon16"/>
-                      <bt:Image size="32" resid="Icon32"/>
-                      <bt:Image size="80" resid="Icon80"/>
+                      <bt:Image size="16" resid="b.icon16"/>
+                      <bt:Image size="32" resid="b.icon32"/>
+                      <bt:Image size="80" resid="b.icon80"/>
                     </Icon>
                     <Action xsi:type="ExecuteFunction">
                       <FunctionName>openEncryptDialog</FunctionName>
@@ -132,15 +132,28 @@
               <LaunchEvents>
                 <LaunchEvent Type="OnMessageSend" FunctionName="onMessageSendHandler" SendMode="PromptUser"/>
               </LaunchEvents>
-              <SourceLocation resid="LaunchEvent.Url"/>
+              <SourceLocation resid="b.launchevent"/>
             </ExtensionPoint>
           </DesktopFormFactor>
         </Host>
       </Hosts>
       <Resources>
+        <bt:Images>
+          <bt:Image id="b.icon16" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/assets/icon-16.png"/>
+          <bt:Image id="b.icon32" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/assets/icon-32.png"/>
+          <bt:Image id="b.icon80" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/assets/icon-80.png"/>
+        </bt:Images>
         <bt:Urls>
-          <bt:Url id="LaunchEvent.Url" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/launchevent.js"/>
+          <bt:Url id="b.commands" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/commands.html"/>
+          <bt:Url id="b.launchevent" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/launchevent.js"/>
         </bt:Urls>
+        <bt:ShortStrings>
+          <bt:String id="b.group" DefaultValue="Encryption"/>
+          <bt:String id="b.btn" DefaultValue="Encrypt Prompt"/>
+        </bt:ShortStrings>
+        <bt:LongStrings>
+          <bt:String id="b.tip" DefaultValue="Prompt to encrypt this email with Microsoft Purview OME."/>
+        </bt:LongStrings>
       </Resources>
     </VersionOverrides>
 
