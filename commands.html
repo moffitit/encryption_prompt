@@ -4,18 +4,18 @@
   <meta charset="UTF-8"/>
   <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
   <script>
-    Office.onReady(function() {});
+    Office.onReady(function () {});
 
     var dialog = null;
 
-    // ── Ribbon button: manually open the encrypt dialog ──────────────────────
+    // Ribbon button — opens the Yes/No popup
     function openEncryptDialog(event) {
       Office.context.ui.displayDialogAsync(
-        'https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/dialog.html',
-        { width: 28, height: 32, displayInIframe: true },
-        function(result) {
+        "https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/dialog.html",
+        { width: 30, height: 35, displayInIframe: true },
+        function (result) {
           if (result.status === Office.AsyncResultStatus.Failed) {
-            console.error('Dialog failed:', result.error.message);
+            console.error("Dialog failed to open:", result.error.message);
             event.completed();
             return;
           }
@@ -24,10 +24,10 @@
 
           dialog.addEventHandler(
             Office.EventType.DialogMessageReceived,
-            function(msg) {
+            function (msg) {
               dialog.close();
               dialog = null;
-              if (msg.message === 'encrypt') {
+              if (msg.message === "encrypt") {
                 applyEncryption(event);
               } else {
                 event.completed();
@@ -37,7 +37,7 @@
 
           dialog.addEventHandler(
             Office.EventType.DialogEventReceived,
-            function() {
+            function () {
               dialog = null;
               event.completed();
             }
@@ -49,30 +49,31 @@
     function applyEncryption(event) {
       var item = Office.context.mailbox.item;
 
-      // Path 1: Sensitivity label (New Outlook / OWA, req set 1.7+)
+      // Try sensitivity label first (New Outlook / OWA with req set 1.7+)
       if (
-        Office.context.requirements.isSetSupported('Mailbox', '1.7') &&
+        Office.context.requirements.isSetSupported("Mailbox", "1.7") &&
         item.sensitivityLabel !== undefined
       ) {
-        var LABEL_GUID = 'YOUR-PURVIEW-LABEL-GUID-HERE';
-        item.sensitivityLabel.setAsync(LABEL_GUID, function(res) {
+        // Replace with your Purview label GUID from the compliance portal
+        item.sensitivityLabel.setAsync("YOUR-PURVIEW-LABEL-GUID-HERE", function (res) {
           if (res.status === Office.AsyncResultStatus.Succeeded) {
             event.completed();
           } else {
-            applyOMEHeader(event);
+            applyHeader(event);
           }
         });
       } else {
-        applyOMEHeader(event);
+        applyHeader(event);
       }
     }
 
-    function applyOMEHeader(event) {
+    // Fallback: set a custom header so an Exchange transport rule can apply OME
+    function applyHeader(event) {
       Office.context.mailbox.item.internetHeaders.setAsync(
-        { 'X-Encrypt-This': 'true' },
-        function(res) {
+        { "X-Encrypt-This": "true" },
+        function (res) {
           if (res.status !== Office.AsyncResultStatus.Succeeded) {
-            console.error('Header set failed:', res.error.message);
+            console.error("Header error:", res.error.message);
           }
           event.completed();
         }
