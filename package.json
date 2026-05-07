@@ -1,0 +1,8 @@
+{
+  "name": "encrypt-email-addin",
+  "version": "1.0.0",
+  "description": "Outlook add-in — Purview OME encryption prompt",
+  "scripts": {
+    "build": "echo No build step required"
+  }
+}
