@@ -43,30 +43,30 @@
     <Rule xsi:type="ItemIs" ItemType="Message" FormType="Edit"/>
   </Rule>
 
-  <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.1" xsi:type="VersionOverridesV1_1">
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides" xsi:type="VersionOverridesV1_0">
     <Requirements>
-      <bt:Sets DefaultMinVersion="1.12">
+      <bt:Sets DefaultMinVersion="1.3">
         <bt:Set Name="Mailbox"/>
       </bt:Sets>
     </Requirements>
     <Hosts>
       <Host xsi:type="MailHost">
         <DesktopFormFactor>
-          <FunctionFile resid="Commands.Url"/>
+          <FunctionFile resid="CmdUrl"/>
           <ExtensionPoint xsi:type="MessageComposeCommandSurface">
             <OfficeTab id="TabDefault">
-              <Group id="EncryptGroup">
-                <Label resid="GroupLabel"/>
-                <Control xsi:type="Button" id="EncryptBtn">
-                  <Label resid="BtnLabel"/>
+              <Group id="GroupA">
+                <Label resid="GroupLbl"/>
+                <Control xsi:type="Button" id="BtnA">
+                  <Label resid="BtnLbl"/>
                   <Supertip>
-                    <Title resid="BtnLabel"/>
-                    <Description resid="BtnTooltip"/>
+                    <Title resid="BtnLbl"/>
+                    <Description resid="BtnTip"/>
                   </Supertip>
                   <Icon>
-                    <bt:Image size="16" resid="Icon16"/>
-                    <bt:Image size="32" resid="Icon32"/>
-                    <bt:Image size="80" resid="Icon80"/>
+                    <bt:Image size="16" resid="Img16"/>
+                    <bt:Image size="32" resid="Img32"/>
+                    <bt:Image size="80" resid="Img80"/>
                   </Icon>
                   <Action xsi:type="ExecuteFunction">
                     <FunctionName>openEncryptDialog</FunctionName>
@@ -75,33 +75,87 @@
               </Group>
             </OfficeTab>
           </ExtensionPoint>
-          <ExtensionPoint xsi:type="LaunchEvent">
-            <LaunchEvents>
-              <LaunchEvent Type="OnMessageSend" FunctionName="onMessageSendHandler" SendMode="PromptUser"/>
-            </LaunchEvents>
-            <SourceLocation resid="LaunchEvent.Url"/>
-          </ExtensionPoint>
         </DesktopFormFactor>
       </Host>
     </Hosts>
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon16" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/assets/icon-16.png"/>
-        <bt:Image id="Icon32" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/assets/icon-32.png"/>
-        <bt:Image id="Icon80" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/assets/icon-80.png"/>
+        <bt:Image id="Img16" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/assets/icon-16.png"/>
+        <bt:Image id="Img32" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/assets/icon-32.png"/>
+        <bt:Image id="Img80" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/assets/icon-80.png"/>
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Commands.Url" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/commands.html"/>
-        <bt:Url id="LaunchEvent.Url" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/launchevent.js"/>
+        <bt:Url id="CmdUrl" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/commands.html"/>
       </bt:Urls>
       <bt:ShortStrings>
-        <bt:String id="GroupLabel" DefaultValue="Encryption"/>
-        <bt:String id="BtnLabel" DefaultValue="Encrypt Prompt"/>
+        <bt:String id="GroupLbl" DefaultValue="Encryption"/>
+        <bt:String id="BtnLbl" DefaultValue="Encrypt Prompt"/>
       </bt:ShortStrings>
       <bt:LongStrings>
-        <bt:String id="BtnTooltip" DefaultValue="Prompt to encrypt this email with Microsoft Purview OME."/>
+        <bt:String id="BtnTip" DefaultValue="Prompt to encrypt this email with Microsoft Purview OME."/>
       </bt:LongStrings>
     </Resources>
-  </VersionOverrides>
 
+    <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.1" xsi:type="VersionOverridesV1_1">
+      <Requirements>
+        <bt:Sets DefaultMinVersion="1.12">
+          <bt:Set Name="Mailbox"/>
+        </bt:Sets>
+      </Requirements>
+      <Hosts>
+        <Host xsi:type="MailHost">
+          <DesktopFormFactor>
+            <FunctionFile resid="CmdUrl2"/>
+            <ExtensionPoint xsi:type="MessageComposeCommandSurface">
+              <OfficeTab id="TabDefault">
+                <Group id="GroupB">
+                  <Label resid="GroupLbl2"/>
+                  <Control xsi:type="Button" id="BtnB">
+                    <Label resid="BtnLbl2"/>
+                    <Supertip>
+                      <Title resid="BtnLbl2"/>
+                      <Description resid="BtnTip2"/>
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="Img162"/>
+                      <bt:Image size="32" resid="Img322"/>
+                      <bt:Image size="80" resid="Img802"/>
+                    </Icon>
+                    <Action xsi:type="ExecuteFunction">
+                      <FunctionName>openEncryptDialog</FunctionName>
+                    </Action>
+                  </Control>
+                </Group>
+              </OfficeTab>
+            </ExtensionPoint>
+            <ExtensionPoint xsi:type="LaunchEvent">
+              <LaunchEvents>
+                <LaunchEvent Type="OnMessageSend" FunctionName="onMessageSendHandler" SendMode="PromptUser"/>
+              </LaunchEvents>
+              <SourceLocation resid="LaunchUrl"/>
+            </ExtensionPoint>
+          </DesktopFormFactor>
+        </Host>
+      </Hosts>
+      <Resources>
+        <bt:Images>
+          <bt:Image id="Img162" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/assets/icon-16.png"/>
+          <bt:Image id="Img322" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/assets/icon-32.png"/>
+          <bt:Image id="Img802" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/assets/icon-80.png"/>
+        </bt:Images>
+        <bt:Urls>
+          <bt:Url id="CmdUrl2" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/commands.html"/>
+          <bt:Url id="LaunchUrl" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/launchevent.js"/>
+        </bt:Urls>
+        <bt:ShortStrings>
+          <bt:String id="GroupLbl2" DefaultValue="Encryption"/>
+          <bt:String id="BtnLbl2" DefaultValue="Encrypt Prompt"/>
+        </bt:ShortStrings>
+        <bt:LongStrings>
+          <bt:String id="BtnTip2" DefaultValue="Prompt to encrypt this email with Microsoft Purview OME."/>
+        </bt:LongStrings>
+      </Resources>
+    </VersionOverrides>
+
+  </VersionOverrides>
 </OfficeApp>
