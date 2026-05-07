@@ -67,9 +67,9 @@
                     <Description resid="v11_DialogButton_Tooltip"/>
                   </Supertip>
                   <Icon>
-                    <bt:Image size="16" resid="v10_Icon_16x16"/>
-                    <bt:Image size="32" resid="v10_Icon_32x32"/>
-                    <bt:Image size="80" resid="v10_Icon_80x80"/>
+                    <bt:Image size="16" resid="v11_Icon_16x16"/>
+                    <bt:Image size="32" resid="v11_Icon_32x32"/>
+                    <bt:Image size="80" resid="v11_Icon_80x80"/>
                   </Icon>
                   <Action xsi:type="ExecuteFunction">
                     <FunctionName>openEncryptDialog</FunctionName>
