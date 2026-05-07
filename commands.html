@@ -8,14 +8,14 @@
 
     var dialog = null;
 
-    // Called by the ribbon button
+    // ── Ribbon button: manually open the encrypt dialog ──────────────────────
     function openEncryptDialog(event) {
       Office.context.ui.displayDialogAsync(
         'https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/dialog.html',
         { width: 28, height: 32, displayInIframe: true },
         function(result) {
           if (result.status === Office.AsyncResultStatus.Failed) {
-            console.error('Dialog failed to open:', result.error.message);
+            console.error('Dialog failed:', result.error.message);
             event.completed();
             return;
           }
@@ -27,11 +27,9 @@
             function(msg) {
               dialog.close();
               dialog = null;
-
               if (msg.message === 'encrypt') {
                 applyEncryption(event);
               } else {
-                // User said No — just let them send normally
                 event.completed();
               }
             }
@@ -39,8 +37,7 @@
 
           dialog.addEventHandler(
             Office.EventType.DialogEventReceived,
-            function(evt) {
-              // Dialog was closed by the user (X button)
+            function() {
               dialog = null;
               event.completed();
             }
@@ -52,23 +49,20 @@
     function applyEncryption(event) {
       var item = Office.context.mailbox.item;
 
-      // Path 1: Sensitivity label API (New Outlook / OWA, req. set 1.7+)
+      // Path 1: Sensitivity label (New Outlook / OWA, req set 1.7+)
       if (
         Office.context.requirements.isSetSupported('Mailbox', '1.7') &&
         item.sensitivityLabel !== undefined
       ) {
-        // Replace with your Purview label GUID
         var LABEL_GUID = 'YOUR-PURVIEW-LABEL-GUID-HERE';
         item.sensitivityLabel.setAsync(LABEL_GUID, function(res) {
           if (res.status === Office.AsyncResultStatus.Succeeded) {
             event.completed();
           } else {
-            // Fallback to header method
             applyOMEHeader(event);
           }
         });
       } else {
-        // Path 2: Internet header — Exchange transport rule applies OME
         applyOMEHeader(event);
       }
     }
@@ -83,11 +77,6 @@
           event.completed();
         }
       );
-    }
-
-    // OnSend event — passthrough (no blocking)
-    function onItemSend(event) {
-      event.completed({ allowEvent: true });
     }
   </script>
 </head>

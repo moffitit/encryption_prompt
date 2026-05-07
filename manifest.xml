@@ -5,7 +5,7 @@
   xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
   xsi:type="MailApp">
 
-  <Id>bdf07523-b1f5-4920-b0cb-5315ce3535ab</Id>
+  <Id>afa5ea65-9fb5-4b71-968b-a40dfd7274ef</Id>
   <Version>1.0.0.0</Version>
   <ProviderName>Your Organisation</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
@@ -55,6 +55,7 @@
         <DesktopFormFactor>
           <FunctionFile resid="Commands.Url"/>
 
+          <!-- Ribbon button: manually open encrypt task pane -->
           <ExtensionPoint xsi:type="MessageComposeCommandSurface">
             <OfficeTab id="TabDefault">
               <Group id="msgComposeGroup">
@@ -100,5 +101,74 @@
       </bt:LongStrings>
     </Resources>
 
+    <!-- V1_1: Smart Alerts OnMessageSend event -->
+    <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.1" xsi:type="VersionOverridesV1_1">
+      <Requirements>
+        <bt:Sets DefaultMinVersion="1.12">
+          <bt:Set Name="Mailbox"/>
+        </bt:Sets>
+      </Requirements>
+
+      <Hosts>
+        <Host xsi:type="MailHost">
+          <DesktopFormFactor>
+            <FunctionFile resid="Commands.Url"/>
+
+            <!-- Ribbon button repeated in V1_1 -->
+            <ExtensionPoint xsi:type="MessageComposeCommandSurface">
+              <OfficeTab id="TabDefault">
+                <Group id="msgComposeGroup11">
+                  <Label resid="GroupLabel"/>
+                  <Control xsi:type="Button" id="encryptDialogButton11">
+                    <Label resid="DialogButton.Label"/>
+                    <Supertip>
+                      <Title resid="DialogButton.Label"/>
+                      <Description resid="DialogButton.Tooltip"/>
+                    </Supertip>
+                    <Icon>
+                      <bt:Image size="16" resid="Icon.16x16"/>
+                      <bt:Image size="32" resid="Icon.32x32"/>
+                      <bt:Image size="80" resid="Icon.80x80"/>
+                    </Icon>
+                    <Action xsi:type="ExecuteFunction">
+                      <FunctionName>openEncryptDialog</FunctionName>
+                    </Action>
+                  </Control>
+                </Group>
+              </OfficeTab>
+            </ExtensionPoint>
+
+            <!-- Smart Alerts: fires on Send -->
+            <ExtensionPoint xsi:type="LaunchEvent">
+              <LaunchEvents>
+                <LaunchEvent Type="OnMessageSend" FunctionName="onMessageSendHandler" SendMode="PromptUser"/>
+              </LaunchEvents>
+              <SourceLocation resid="LaunchEvent.Url"/>
+            </ExtensionPoint>
+
+          </DesktopFormFactor>
+        </Host>
+      </Hosts>
+
+      <Resources>
+        <bt:Images>
+          <bt:Image id="Icon.16x16" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/assets/icon-16.png"/>
+          <bt:Image id="Icon.32x32" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/assets/icon-32.png"/>
+          <bt:Image id="Icon.80x80" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/assets/icon-80.png"/>
+        </bt:Images>
+        <bt:Urls>
+          <bt:Url id="Commands.Url" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/commands.html"/>
+          <bt:Url id="LaunchEvent.Url" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/launchevent.js"/>
+        </bt:Urls>
+        <bt:ShortStrings>
+          <bt:String id="GroupLabel" DefaultValue="Encryption"/>
+          <bt:String id="DialogButton.Label" DefaultValue="Encrypt Email"/>
+        </bt:ShortStrings>
+        <bt:LongStrings>
+          <bt:String id="DialogButton.Tooltip" DefaultValue="Prompt to encrypt this email with Microsoft Purview OME."/>
+        </bt:LongStrings>
+      </Resources>
+
+    </VersionOverrides>
   </VersionOverrides>
 </OfficeApp>
