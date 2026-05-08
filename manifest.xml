@@ -81,16 +81,16 @@
       <bt:Urls>
         <bt:Url id="Commands.Url" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/commands.html"/>
       </bt:Urls>
-      <bt:ShortStrings>
-        <bt:String id="groupLabel"  DefaultValue="Encryption"/>
-        <bt:String id="buttonLabel" DefaultValue="Encryption Check"/>
-        <bt:String id="buttonDesc"  DefaultValue="Check if this email needs to be encrypted"/>
-      </bt:ShortStrings>
       <bt:Images>
         <bt:Image id="icon16" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/icon16.png"/>
         <bt:Image id="icon32" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/icon32.png"/>
         <bt:Image id="icon80" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/icon80.png"/>
       </bt:Images>
+      <bt:ShortStrings>
+        <bt:String id="groupLabel"  DefaultValue="Encryption"/>
+        <bt:String id="buttonLabel" DefaultValue="Encryption Check"/>
+        <bt:String id="buttonDesc"  DefaultValue="Check if this email needs to be encrypted"/>
+      </bt:ShortStrings>
     </Resources>
 
     <!-- V1_1 nested inside V1_0 — Smart Alerts with built-in PromptUser dialog -->
@@ -116,16 +116,16 @@
         <bt:Urls>
           <bt:Url id="Commands.Url" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/commands.html"/>
         </bt:Urls>
-        <bt:ShortStrings>
-          <bt:String id="groupLabel"  DefaultValue="Encryption"/>
-          <bt:String id="buttonLabel" DefaultValue="Encryption Check"/>
-          <bt:String id="buttonDesc"  DefaultValue="Check if this email needs to be encrypted"/>
-        </bt:ShortStrings>
         <bt:Images>
           <bt:Image id="icon16" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/icon16.png"/>
           <bt:Image id="icon32" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/icon32.png"/>
           <bt:Image id="icon80" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/icon80.png"/>
         </bt:Images>
+        <bt:ShortStrings>
+          <bt:String id="groupLabel"  DefaultValue="Encryption"/>
+          <bt:String id="buttonLabel" DefaultValue="Encryption Check"/>
+          <bt:String id="buttonDesc"  DefaultValue="Check if this email needs to be encrypted"/>
+        </bt:ShortStrings>
       </Resources>
     </VersionOverrides>
 
