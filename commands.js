@@ -1,16 +1,12 @@
-/* ------------------------------------------------------------------ *
- *  Encryption Reminder – Outlook Add-in                               *
- *  commands.js                                                        *
- * ------------------------------------------------------------------ */
-
 Office.onReady(function () {
   Office.actions.associate("onItemSend", onItemSend);
 });
 
 /**
- * Called when the user clicks Send.
- * Passes allowEvent: false + an errorMessage, which triggers Outlook's
- * built-in "Send Anyway / Don't Send" prompt (no custom dialog needed).
+ * Smart Alert handler — triggered by OnMessageSend.
+ * Returning allowEvent: false with an errorMessage causes Outlook to show
+ * its built-in prompt: "Does this email need to be encrypted?
+ * [Send Anyway]  [Don't Send]"
  */
 function onItemSend(event) {
   event.completed({
