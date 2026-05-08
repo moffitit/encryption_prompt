@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "description": "Outlook add-in — Purview OME encryption prompt",
   "scripts": {
-    "build": "echo No build step required"
+    "build": "echo No build step required",
+    "start": "office-addin-dev-certs install --days 365 && npx http-server . --ssl --cert %USERPROFILE%\\.office-addin-dev-certs\\localhost.crt --key %USERPROFILE%\\.office-addin-dev-certs\\localhost.key --port 3000 --cors",
+    "start:mac": "office-addin-dev-certs install --days 365 && npx http-server . --ssl --cert ~/.office-addin-dev-certs/localhost.crt --key ~/.office-addin-dev-certs/localhost.key --port 3000 --cors"
+  },
+  "devDependencies": {
+    "http-server": "^14.0.0",
+    "office-addin-dev-certs": "^1.13.5"
   }
 }
