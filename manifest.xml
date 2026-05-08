@@ -37,7 +37,7 @@
     <Rule xsi:type="ItemIs" ItemType="Message" FormType="Edit"/>
   </Rule>
 
-  <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.1" xsi:type="VersionOverridesV1_1">
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides" xsi:type="VersionOverridesV1_0">
     <Requirements>
       <bt:Sets DefaultMinVersion="1.3">
         <bt:Set Name="Mailbox"/>
@@ -47,16 +47,9 @@
     <Hosts>
       <Host xsi:type="MailHost">
         <DesktopFormFactor>
-          <!-- Replace with your hosted URL -->
           <FunctionFile resid="Commands.Url"/>
-
           <ExtensionPoint xsi:type="Events">
-            <!--
-              SendMode="PromptUser" tells Outlook to show its built-in prompt:
-                "Does this email need to be encrypted?  [Send Anyway]  [Don't Send]"
-              No custom dialog HTML required.
-            -->
-            <Event Type="ItemSend" FunctionExecution="synchronous" FunctionName="onItemSend" SendMode="PromptUser"/>
+            <Event Type="ItemSend" FunctionExecution="synchronous" FunctionName="onItemSend"/>
           </ExtensionPoint>
         </DesktopFormFactor>
       </Host>
@@ -64,9 +57,34 @@
 
     <Resources>
       <bt:Urls>
-        <!-- Replace YOUR-DOMAIN.com with your actual hosting domain -->
         <bt:Url id="Commands.Url" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/commands.html"/>
       </bt:Urls>
     </Resources>
+
+    <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides/1.1" xsi:type="VersionOverridesV1_1">
+      <Requirements>
+        <bt:Sets DefaultMinVersion="1.3">
+          <bt:Set Name="Mailbox"/>
+        </bt:Sets>
+      </Requirements>
+
+      <Hosts>
+        <Host xsi:type="MailHost">
+          <DesktopFormFactor>
+            <FunctionFile resid="Commands.Url"/>
+            <ExtensionPoint xsi:type="Events">
+              <Event Type="ItemSend" FunctionExecution="synchronous" FunctionName="onItemSend" SendMode="PromptUser"/>
+            </ExtensionPoint>
+          </DesktopFormFactor>
+        </Host>
+      </Hosts>
+
+      <Resources>
+        <bt:Urls>
+          <bt:Url id="Commands.Url" DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/commands.html"/>
+        </bt:Urls>
+      </Resources>
+    </VersionOverrides>
+
   </VersionOverrides>
 </OfficeApp>
