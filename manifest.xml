@@ -28,7 +28,6 @@
       <DesktopSettings>
         <!-- Replace with your hosted URL -->
         <SourceLocation DefaultValue="https://ambitious-moss-0b7d1121e.7.azurestaticapps.net/taskpane.html"/>
-        <RequestedHeight>450</RequestedHeight>
       </DesktopSettings>
     </Form>
   </FormSettings>
